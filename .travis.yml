@@ -43,3 +43,8 @@ matrix:
       env:
         - TARGET=x86_64
         - CHECK=coverage
+    - compiler: gcc
+      env:
+        - TARGET=x86_64
+        - CHECK=valgrind
+        - TIMEOUT_DURATION=600

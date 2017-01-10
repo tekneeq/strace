@@ -28,6 +28,9 @@ case "${CHECK-}" in
 		CFLAGS_FOR_BUILD="$CFLAGS"
 		export CFLAGS CFLAGS_FOR_BUILD
 		;;
+	valgrind)
+		DISTCHECK_CONFIGURE_FLAGS="$DISTCHECK_CONFIGURE_FLAGS --enable-valgrind"
+		;;
 esac
 
 $CC --version
@@ -49,6 +52,10 @@ case "${CHECK-}" in
 		make -k $j all VERBOSE=${VERBOSE-}
 		make -k $j check VERBOSE=${VERBOSE-}
 		codecov --gcov-args=-abcp ||:
+		;;
+	valgrind)
+		make -k $j all VERBOSE=${VERBOSE-}
+		make -k $j check-valgrind VERBOSE=${VERBOSE-}
 		;;
 	*)
 		make -k $j distcheck VERBOSE=${VERBOSE-}
